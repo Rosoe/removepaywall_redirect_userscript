@@ -386,7 +386,7 @@
 // @match        https://*.nydailynews.com/*/*
 // @match        https://*.nymag.com/*/*
 // @match        https://*.nyteknik.se/*/*
-// @match        https://*.nytimes.com/*/*
+// @match        https://*.nytimes.com/*/*/*
 // @match        https://*.nzherald.co.nz/*/*
 // @match        https://*.nzz.ch/*/*
 // @match        https://*.observador.pt/*/*
@@ -585,64 +585,5 @@
 
 (function() {
     'use strict';
-
-    // Create floating button
-    const button = document.createElement('div');
-    button.id = 'pr-button';
-    button.innerHTML = 'PR<br><span id="pr-icon">+</span>';
-    
-    // Style the button
-    Object.assign(button.style, {
-        position: 'fixed',
-        left: '20px',
-        bottom: '20px',
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        background: '#ffffff',
-        border: '2px solid #ff4d4d',
-        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '12px',
-        fontWeight: 'bold',
-        color: '#ff4d4d',
-        textAlign: 'center',
-        lineHeight: '1.2'
-    });
-
-    // Button click handler
-    button.addEventListener('click', () => {
-        if (window.location.hostname !== 'www.removepaywall.com') {
-            window.location.href = `https://www.removepaywall.com/search?url=${encodeURIComponent(window.location.href)}`;
-        }
-    });
-
-    // Initial setup and auto-redirect
-    document.body.appendChild(button);
-    // Function to find and click the target button
-    const targetButtonXPath = '//*[@transform="scale(1, -1) translate(0, -512)" and @d="M256 217.9L383 345c9.4 9.4 24.6 9.4 33.9 0 9.4-9.4 9.3-24.6 0-34L273 167c-9.1-9.1-23.7-9.3-33.1-.7L95 310.9c-4.7 4.7-7 10.9-7 17s2.3 12.3 7 17c9.4 9.4 24.6 9.4 33.9 0l127.1-127z"]';
-    
-    const checkButton = setInterval(() => {
-        const result = document.evaluate(targetButtonXPath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-        const button = result.singleNodeValue;
-        
-        if (button) {
-            clearInterval(checkButton);
-            button.click();
-            setTimeout(() => {
-                if (window.location.hostname !== 'www.removepaywall.com') {
-            window.location.replace(`https://www.removepaywall.com/search?url=${encodeURIComponent(window.location.href)}`);
-        }
-            }, 1000); // Allow time for click handler to execute
-        }
-    }, 500);
-
-    // Fallback redirect if button not found within 0.5 seconds
-    setTimeout(() => {
-        clearInterval(checkButton);
-        window.location.replace(`https://www.removepaywall.com/search?url=${encodeURIComponent(window.location.href)}`);
-    }, 500);
+    window.location.replace(`https://www.removepaywall.com/search?url=${encodeURIComponent(window.location.href)}`);
 })();
